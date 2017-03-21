@@ -446,23 +446,28 @@ function evaluateHands(hand, playerNum)
                             }
                 }
         }
+        
         if (containsAce && cardTotal > 21)
                 {
                     cardTotal -= 10;
                 }
+        
         console.log("Card Total is:" + cardTotal);
         document.getElementById("player" + playerNum + "Hand").innerText = " - " + cardTotal;
+        
         if (cardTotal > 21)
             {
                 document.getElementById("player" + playerNum + "Hand").innerText = " - BUST";
                 document.getElementById("hitButton").disabled = true;
 
             }
+        
         if (cardTotal == 21)
             {
             document.getElementById("hitButton").disabled = true;
             }
     }
+    
     function hitPlayer()
     {
         
@@ -478,6 +483,15 @@ function evaluateHands(hand, playerNum)
         displayCards(player, 2);
         evaluateHands(player, 2);
     }
+    
+    function standPlayer()
+        {
+           //add onclick event to disable hit button and to deal a hand to dealer.
+            //evauluate hand at each step.
+            //create switch statment to determine if dealer will hit or stand.
+            //determine winner where the house has the advantage.
+        }
+
     </script>
 </body>
 </html>
