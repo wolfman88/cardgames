@@ -23,7 +23,7 @@
 <input id="newDeckButton" type="button" value="New Deck" onclick="newDeck();" />
 <input id="drawButton" type="button" value="Draw" onclick="draw();" />
 <input id="hitButton" type="button" value="Hit" onclick="hitPlayer();" />
-<input id="standButton" type="button" value="Stand" /><br>
+<input id="standButton" type="button" value="Stand" onclick="standPlayer();" /><br>
 <!--<input id="newGameButton" type="button" value="New Game" onclick="newdeck();" />-->
 </div>
 <script src="pokersolver.js"></script>
@@ -38,7 +38,8 @@ var player2;
 var player1Discards = [];
 var player2Discards = [];
 var existingDiscardIndex;
-var cardValue=""; 
+var cardValue="";
+var playerTotal = 0;
 
 document.getElementById("dealButton").hidden = true;
 document.getElementById("drawButton").hidden = true;
@@ -398,11 +399,13 @@ function dealBlackJack()
         dealer.push(tempDealtCard2.toString());
     }
     document.getElementById("hitButton").disabled = false;
+    document.getElementById("standButton").disabled = false;
     displayCards(player, 2);
     displayCards(dealer, 1);
     evaluateHands(player, 2);
     evaluateHands(dealer, 1);
     }
+    
 function evaluateHands(hand, playerNum)
     {
     //fix issue where cards are not being displayed. 
@@ -466,6 +469,7 @@ function evaluateHands(hand, playerNum)
             {
             document.getElementById("hitButton").disabled = true;
             }
+        return cardTotal;
     }
     
     function hitPlayer()
@@ -486,11 +490,29 @@ function evaluateHands(hand, playerNum)
     
     function standPlayer()
         {
-           //add onclick event to disable hit button and to deal a hand to dealer.
-            //evauluate hand at each step.
-            //create switch statment to determine if dealer will hit or stand.
+        var cardTotal = 0; 
+             playerTotal = evaluateHands(player, 2);
+                    //disable hit button and to deal a hand to dealer.
+            document.getElementById("standButton").disabled = true;
+        do {
+            var tempDealtCard2 = currentDeck.splice(0, 1);               
+            dealer.push(tempDealtCard2.toString());
+            displayCards(dealer, 1);
+                //evauluate hand.
+            cardTotal = evaluateHands(dealer, 1);
+            }
+        while (cardTotal < 17);
+            
             //determine winner where the house has the advantage.
-        }
+    if (cardTotal >= playerTotal && cardTotal <= 21)
+    {       //dealer
+        document.getElementById("player1Label").innerText += " - WINNER";        
+    }
+    else 
+    {       //player
+        document.getElementById("player2Label").innerText += " - WINNER";        
+    }
+    }
 
     </script>
 </body>
