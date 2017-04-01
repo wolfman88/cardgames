@@ -477,11 +477,6 @@ function evaluateHands(hand, playerNum)
         
         var tempDealtCard1 = currentDeck.splice(0, 1);               
         player.push(tempDealtCard1.toString());
-    //deal a single card to player.
-    //display new card.
-    //re-evaulate hand total.
-    //check to see if hand has gone over 21.
-    //if hand is over 21 disable hit button and display "player Bust".
     //display re-calculated hand total if hand is under 21.
     
         displayCards(player, 2);
@@ -506,11 +501,11 @@ function evaluateHands(hand, playerNum)
             //determine winner where the house has the advantage.
     if (cardTotal >= playerTotal && cardTotal <= 21)
     {       //dealer
-        document.getElementById("player1Label").innerText += " - WINNER";        
+        document.getElementById("player1Hand").innerText += " - WINNER";        
     }
     else 
     {       //player
-        document.getElementById("player2Label").innerText += " - WINNER";        
+        document.getElementById("player2Hand").innerText += " - WINNER";        
     }
     }
 
