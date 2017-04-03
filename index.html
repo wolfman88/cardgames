@@ -40,6 +40,7 @@ var player2Discards = [];
 var existingDiscardIndex;
 var cardValue="";
 var playerTotal = 0;
+var dealerTotal = 0;
 
 document.getElementById("dealButton").hidden = true;
 document.getElementById("drawButton").hidden = true;
@@ -403,7 +404,7 @@ function dealBlackJack()
     displayCards(player, 2);
     displayCards(dealer, 1);
     evaluateHands(player, 2);
-    evaluateHands(dealer, 1);
+    dealerTotal = evaluateHands(dealer, 1);
     }
     
 function evaluateHands(hand, playerNum)
@@ -461,19 +462,30 @@ function evaluateHands(hand, playerNum)
         if (cardTotal > 21)
             {
                 document.getElementById("player" + playerNum + "Hand").innerText = " - BUST";
+            if (playerNum == 2)
+                {
+                document.getElementById("player1Hand").innerText = " - WINNER";
+                }
                 document.getElementById("hitButton").disabled = true;
+                document.getElementById("standButton").disabled = true;
             }
         
         if (cardTotal == 21)
             {
             document.getElementById("hitButton").disabled = true;
+        if (playerNum == 2)
+            {
+            standPlayer();
             }
+            }
+        
         return cardTotal;
     }
     
+    //check to make shure there are enough cards. at least 13.
+    //solve problem with too many evaluate's that causes a loop.
     function hitPlayer()
     {
-        
         var tempDealtCard1 = currentDeck.splice(0, 1);               
         player.push(tempDealtCard1.toString());
     //display re-calculated hand total if hand is under 21.
